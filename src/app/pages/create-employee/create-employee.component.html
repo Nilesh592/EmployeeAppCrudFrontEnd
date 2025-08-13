@@ -49,7 +49,7 @@
       <label for="payrollType">Payroll Type</label>
       <select id="payrollType" formControlName="payrollType" class="form-input">
         <option [value]="null">Select Payroll Type</option>
-        <option [value]="type.value" *ngFor="let type of payrollTypes">{{type.name}}</option>
+        <option [value]="type?.value" *ngFor="let type of payrollTypes">{{type.name}}</option>
       </select>
     </div>
     <div class="form-group">

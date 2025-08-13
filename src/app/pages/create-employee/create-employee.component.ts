@@ -254,7 +254,7 @@ export class CreateEmployeeComponent {
     }
     debugger;
 
-    if (this.isEditing && this.employeeId !== null) {
+    if (this.isEditing && this.employeeId !== 0) {
       const updateData = {
         ...payload,
       };
@@ -271,7 +271,7 @@ export class CreateEmployeeComponent {
       }
     });
     } else {
-      this.employeeService.update(payload).subscribe((res) => {
+      this.employeeService.create(payload).subscribe((res) => {
       if (res.success) {
         alert('Employee created successfully');
         console.log(res);
@@ -282,16 +282,6 @@ export class CreateEmployeeComponent {
       }
     });
     }
-    this.employeeService.create(payload).subscribe((res) => {
-      if (res.success) {
-        alert('Employee created successfully');
-        console.log(res);
-        this.formGroup.reset();
-        this.resetFileInput();
-      } else {
-        alert('Employee creation failed');
-      }
-    });
   }
 
   patchFormWithData(data: any) {
@@ -307,10 +297,12 @@ export class CreateEmployeeComponent {
       employeeName: Data[0].employeeName,
       salary: Data[0].salary,
       email: Data[0].email,
-      dateOfBirth: new Date(Data[0].dateOfBirth).toISOString().split('T')[0],
       payrollType: Data[0].payrollType,
+      dateOfBirth: new Date(Data[0].dateOfBirth).toISOString().split('T')[0],
       uploadPicture: Data[0].uploadPicture
-      })
+      });
+      
+      console.log(this.formGroup.value)
   }
 
   onImageUpload(event:any){
