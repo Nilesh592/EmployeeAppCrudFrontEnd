@@ -1,0 +1,50 @@
+<div
+  class="bg-white shadow rounded-lg border border-gray-200 mt-1 px-4 pb-4 pt-1 relative"
+  [ngClass]="customClass"
+>
+  <!-- Top gradient bar -->
+  <!-- <div
+    class="absolute top-0 left-0 w-full h-1 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+  ></div> -->
+
+  <div
+    class="bg-blue-100 flex justify-between items-center px-3 py-2 rounded-md mb-4 mt-2"
+  >
+    <!-- Left (Icon + Title) -->
+    <div class="flex items-center space-x-2">
+      <!-- <mat-icon *ngIf="icon" class="text-blue-500">{{ icon }}</mat-icon> -->
+      <h2 class="text-[21px] font-bold text-gray-800 font-heading">
+        {{ title }}
+      </h2>
+    </div>
+
+    <!-- Right: Action Button + Toggle -->
+    <div class="flex items-center space-x-4">
+      <button
+        *ngIf="actionText"
+        class="text-sm bg-blue-600 hover:bg-blue-700 text-white font-medium py-1.5 px-3 rounded-md shadow transition"
+        (click)="onActionClick()"
+      >
+        {{ actionText }}
+      </button>
+
+      <button
+        *ngIf="collapsible"
+        (click)="toggleCollapse()"
+        class="text-gray-600 hover:text-gray-900 focus:outline-none text-xl font-semibold"
+        type="button"
+      >
+        {{ isCollapsed ? "+" : "−" }}
+      </button>
+      <ng-content select="[header-actions]"></ng-content>
+    </div>
+  </div>
+
+  <!-- Content with animation -->
+  <div
+    class="overflow-visible transition-all"
+    [@expandCollapse]="isCollapsed ? 'collapsed' : 'expanded'"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

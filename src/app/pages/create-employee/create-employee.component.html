@@ -1,0 +1,69 @@
+<div>
+  <div class="row p-3 bg-primary text-white shadow-sm">
+        <div class="col-6">
+            <h2 class="mb-0"><i class="fas fa-users me-2"></i>Employee {{mode}}</h2>
+        </div>
+        <div class="col-6 text-end" (click)="listPage()">
+            <button class="btn btn-light">
+                <i class="fas fa-plus me-2"></i>Employee List
+            </button>
+        </div>
+    </div>
+  <form [formGroup]="formGroup" class="form-container">
+    <div class="form-group">
+      <label for="employeeName">Employee Name</label>
+      <input type="text" id="employeeName" formControlName="employeeName" class="form-input">
+      <div *ngIf="formGroup.get('employeeName')?.invalid && formGroup.get('employeeName')?.touched">
+        <small *ngIf="formGroup.get('employeeName')?.errors?.['required']">Employee Name is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="salary">Salary</label>
+      <input type="number" id="salary" formControlName="salary" class="form-input">
+      <div *ngIf="formGroup.get('salary')?.invalid && formGroup.get('salary')?.touched">
+        <small *ngIf="formGroup.get('salary')?.errors?.['required']">Salary is required</small>
+        <small *ngIf="formGroup.get('salary')?.errors?.['min']">Salary must be greater than or equal to 0</small>
+        <small *ngIf="formGroup.get('salary')?.errors?.['pattern']">Salary must be a number</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" class="form-input">
+      <div *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched">
+        <small *ngIf="formGroup.get('email')?.errors?.['required']">Email is required</small>
+        <small *ngIf="formGroup.get('email')?.errors?.['email']">Invalid email format</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="dateOfBirth">Date of Birth</label>
+      <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="form-input">
+      <div *ngIf="formGroup.get('dateOfBirth')?.invalid && formGroup.get('dateOfBirth')?.touched">
+        <small *ngIf="formGroup.get('dateOfBirth')?.errors?.['required']">Date of Birth is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="payrollType">Payroll Type</label>
+      <select id="payrollType" formControlName="payrollType" class="form-input">
+        <option [value]="null">Select Payroll Type</option>
+        <option [value]="type.value" *ngFor="let type of payrollTypes">{{type.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="uploadPicture">Upload Picture</label>
+      <input type="file" id="uploadPicture" formControlName="uploadPicture" class="form-input" accept="image/*"
+        (change)="onImageUpload($event)">
+      <div>
+        <img width="150" [src]="EmployeeImage" alt="">
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button type="submit" class="submit-button" (click)="onSubmit()">Submit</button>
+
+    </div>
+  </form>
+</div>
